@@ -1,0 +1,13 @@
+{% extends "layout/base.html" %}
+{% block title %}Регистрация{% endblock title %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+        <div class="card">
+            <h2 class="card-title">Регистрация</h2>
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" class="btn btn-primary btn-login btn-block">Зарегистрироваться</button>
+        </div>
+    </div>
+{% endblock content %}

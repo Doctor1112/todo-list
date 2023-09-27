@@ -1,0 +1,17 @@
+<div class="todo" data-todo-id="{{ todo.pk }}">
+
+
+<div class="todo-item">
+<a href="{% url 'detail' pk=todo.pk %}">
+    {% if todo.completed %}
+    <s>{{todo.title}}</s>
+    {% else %}
+    {{todo.title}}
+    {% endif %}
+</a>
+        <a class="text-decoration-none text-reset" href="{% url 'complete' pk=todo.pk %}">&#9745;</a>
+    <a class="text-decoration-none text-reset show-edit-form" href="{% url 'edit' pk=todo.pk %}">&#9998;</a>
+    <a class="text-decoration-none text-reset" href="{% url 'delete' pk=todo.pk %}">&#10008;</a>
+    </div>
+    <div class="edit-form-container"></div>
+</div>

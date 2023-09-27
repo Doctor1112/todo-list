@@ -1,0 +1,73 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %} Задачи {% endblock title%}
+{% block content %}
+<div class="container">
+     {% if super_todo %}
+    <a href="{{back_button_url}}" class="btn btn-secondary">Назад</a>
+    <div class="text-center">
+
+        {% if super_todo.completed %}
+        <s><h2>{{super_todo.title}}</h2></s>
+        {% else %}
+        <h2>{{super_todo.title}}</h2>
+        {% endif %}
+
+    </div>
+
+    {% if not super_todo.description %}
+    <a class="desc-button btn btn-secondary" id="add-description-form" href="{% url 'add_desc' pk=super_todo.pk %}">Добавить описание</a>
+    {% else %}
+    <div class="mb-3">
+        <h4>Описание задачи:</h4>
+        <p style="word-wrap: break-word;" id="description">{{super_todo.description}}</p></div>
+    <a class="desc-button btn btn-secondary" id="edit-description-form" href="{% url 'edit_desc' pk=super_todo.pk %}">Изменить описание</a>
+    {% endif %}
+    <div id="description-form-container"></div>
+
+    {% endif %}
+        <div class="row">
+            <div class="text-center">
+    <ul class="list-group mt-3" id="list-group-uncompleted">
+{% for todo in uncompleted_todos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+                {% include 'todo.html' with todo=todo %}
+
+        </li>
+{% endfor %}
+    </ul>
+
+</div>
+  <div class="button-container col-12 text-center">
+      {% if super_todo %}
+      <a class="btn btn-primary mt-3 add-button" href="{% url 'create' pk=super_todo.pk %}" id="show-create-form">Добавить задачу</a>
+      {% else %}
+      <a class="btn btn-primary mt-3 add-button" href="{% url 'create' %}" id="show-create-form">Добавить задачу</a>
+      {% endif %}
+
+      <div id="create-form-container"></div>
+      </div>
+{% if completed_todos %}
+<div class="text-left">
+
+      <h5>Выполненные задачи</h5>
+    </div>
+            {% endif %}
+
+      <ul class="list-group" id="list-group-completed">
+          {% for todo in completed_todos %}
+          <li class="list-group-item">
+                 {% include 'todo.html' with todo=todo %}
+          </li>
+          {% endfor %}
+      </ul>
+    </div>
+        </div>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/create_form.js' %}"></script>
+<script src="{% static 'js/edit.js' %}"></script>
+<script src="{% static 'js/add_description.js' %}"></script>
+<script src="{% static 'js/close_form.js' %}"></script>
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+{% endblock content %}
+

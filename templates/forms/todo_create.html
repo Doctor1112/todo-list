@@ -1,0 +1,10 @@
+
+<div class="container justify-content-center align-items-center">
+<form method="post" action="{{action}}">
+
+  {{ form.as_p }}
+  {% csrf_token %}
+  <input type="submit" value="Создать">
+  <button type="button" id="close-create-todo-form">Отмена</button>
+</form>
+</div>
